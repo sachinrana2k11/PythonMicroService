@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  # nginx:
+  #   container_name: nginx
+  #   image: ideaxaacr.azurecr.io/nginx:0.1
+  #   build:
+  #     context: .
+  #     dockerfile: NginxService/Dockerfile
+  #   ports:
+  #       - 80:80
+  #   depends_on:
+  #       - master
+  master:
+    image: ideaxaacr.azurecr.io/apigateway:0.1
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    # deploy:
+    #   replicas: 2
+    ports:
+      - 3001:3001
+  weather:
+    image: ideaxaacr.azurecr.io/weather:0.1
+    build:
+      context: .
+      dockerfile: WeatherService/Dockerfile
+    deploy:
+      replicas: 2
+  news:
+    image: ideaxaacr.azurecr.io/news:0.1
+    build:
+      context: .
+      dockerfile: NewsService/Dockerfile
+    deploy:
+        replicas: 2
